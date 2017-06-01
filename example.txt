@@ -1,0 +1,115 @@
+
+<%@ Page Title="Maintenance Contracts" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="ContractsList_AC.aspx.vb" Inherits="Work_Register.WebForm5" %>
+
+ 
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
+    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
+        DataSourceID="AccessDataSource1" AllowPaging="True" BackColor="White" 
+        BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" 
+        AllowSorting="True" PageSize="15" Width="1160px" >
+
+        <Columns>
+            <asp:BoundField DataField="Client_Name" HeaderText="Client Name" 
+                SortExpression="Client_Name" />
+            <asp:HyperLinkField DataNavigateUrlFields="ID" 
+                DataNavigateUrlFormatString="Workactivities.aspx?id={0}" 
+                HeaderText="Order Number" Text="vvv" DataTextField="Order_Number" 
+                AccessibleHeaderText="xxxxxxxxxxxxxxx" Target="_blank" >
+            <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="65px" />
+            </asp:HyperLinkField>
+            <asp:BoundField DataField="Date" HeaderText="Date" SortExpression="Date" 
+                DataFormatString="{0:dd/MM/yyyy}" >
+            <ItemStyle HorizontalAlign="Center" />
+            </asp:BoundField>
+
+
+            
+            <asp:TemplateField>
+                <ItemTemplate>
+                    <asp:HyperLink ID="HyperLink1" runat="server"             
+                        NavigateUrl='<%# Eval("ID", "WorkDetail.aspx?ID={0}") %>' >
+                        <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/Information Images/fileview-detailed.png" Tooltip="Work Detail Information" Border="0"/>
+                        </asp:HyperLink>
+                </ItemTemplate>
+                <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="27px" />
+            </asp:TemplateField>
+
+            <asp:TemplateField>
+                <ItemTemplate>
+                    <asp:HyperLink ID="HyperLink4" runat="server" 
+                        NavigateUrl='<%# Eval("id", "workactivities.aspx?id={0}") %>' >
+                         <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/Information Images/calendar_view_month.png" Tooltip="Activity Information" Border="0" />               
+                        </asp:HyperLink>
+                </ItemTemplate>
+                <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="27px" />
+            </asp:TemplateField>
+
+            <asp:TemplateField>
+                <ItemTemplate>
+                    <asp:HyperLink ID="HyperLink3" runat="server" 
+                        NavigateUrl='<%# Eval("ID", "worknotes.aspx?id={0}") %>' >
+                        <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/Information Images/notes1.png" Tooltip="Notes Information" Border="0" />
+                        </asp:HyperLink>
+                </ItemTemplate>
+                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="27px" />
+            </asp:TemplateField>
+
+          
+
+             
+
+
+
+
+
+
+            <asp:BoundField DataField="Account_Manager" HeaderText="Account_Manager" 
+                SortExpression="Account_Manager" />
+            <asp:BoundField DataField="Contract Type" HeaderText="Contract Type" 
+                SortExpression="Contract Type" />
+            <asp:BoundField DataField="Contract_Start_date" 
+                HeaderText="Contract Start date" SortExpression="Contract_Start_date" 
+                DataFormatString="{0:dd/MM/yyyy}" >
+            <ItemStyle HorizontalAlign="Center" Width="85px" />
+            </asp:BoundField>
+            <asp:BoundField DataField="Contract_End_Date" HeaderText="Contract End Date" 
+                SortExpression="Contract_End_Date" DataFormatString="{0:dd/MM/yyyy}" >
+            <ItemStyle HorizontalAlign="Center" Width="85px" />
+            </asp:BoundField>
+            <asp:BoundField DataField="Maint_Contract_Renewed" 
+                HeaderText="Maint_Contract_Renewed" 
+                SortExpression="Maint_Contract_Renewed" Visible="False" />
+            <asp:BoundField DataField="Software_Maint_Customer" 
+                HeaderText="Software_Maint_Customer" 
+                SortExpression="Software_Maint_Customer" Visible="False" />
+        </Columns>
+        <FooterStyle BackColor="White" ForeColor="#000066" />
+        <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
+        <PagerSettings FirstPageImageUrl="~/Images/Navigation Images/first.gif" 
+            LastPageImageUrl="~/Images/Navigation Images/last.gif" 
+            Mode="NextPreviousFirstLast" 
+            NextPageImageUrl="~/Images/Navigation Images/next.gif" 
+            PreviousPageImageUrl="~/Images/Navigation Images/prev.gif" />
+        <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Center" />
+        <RowStyle ForeColor="#000066" />
+        <SelectedRowStyle BackColor="#669999" Font-Bold="True" ForeColor="White" />
+        <SortedAscendingCellStyle BackColor="#F1F1F1" />
+        <SortedAscendingHeaderStyle BackColor="#007DBB" />
+        <SortedDescendingCellStyle BackColor="#CAC9C9" />
+        <SortedDescendingHeaderStyle BackColor="#00547E" />
+    </asp:GridView>
+    <asp:AccessDataSource ID="AccessDataSource1" runat="server" 
+        DataFile="C:\work register\back end database\work register_BE.accdb"
+        
+        
+        
+        
+        
+        SelectCommand="SELECT [Date], [Order Number] AS Order_Number, [Client Name] AS Client_Name, [Software Maint Customer] AS Software_Maint_Customer, [Maint Contract Renewed] AS Maint_Contract_Renewed, [Account Manager] AS Account_Manager, [Contract Start date] AS Contract_Start_date, [Contract End Date] AS Contract_End_Date, [Contract Type], ID FROM [Work Detail Record] WHERE ([Software Maint Customer] = 'Yes') AND ([Maint Contract Renewed] IS NULL) ORDER BY [Contract End Date], [Client Name]">
+    </asp:AccessDataSource>
+</asp:Content>
